@@ -6,7 +6,6 @@ import {
   Button,
   Flex,
   Heading,
-  Image,
   Text,
   TextField,
   View,
@@ -17,7 +16,6 @@ import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
-
 
 const API = generateClient();
 
@@ -35,7 +33,6 @@ const App = ({ signOut }) => {
       notesFromAPI.map(async (note) => {
         if (note.image) {
           const url = await Storage.get(note.name);
-          note.image = url;
         }
         return note;
       })
@@ -46,13 +43,11 @@ const App = ({ signOut }) => {
   async function createNote(event) {
   event.preventDefault();
   const form = new FormData(event.target);
-  const image = form.get("image");
   const data = {
     name: form.get("name"),
     description: form.get("description"),
-    image: image.name,
   };
-  if (!!data.image) await Storage.put(data.name, image);
+  await Storage.put(data.name );
   await API.graphql({
     query: createNoteMutation,
     variables: { input: data },
