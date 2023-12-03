@@ -18,6 +18,7 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 
+
 const API = generateClient();
 
 const App = ({ signOut }) => {
@@ -90,12 +91,6 @@ const App = ({ signOut }) => {
             variation="quiet"
             required
           />
-          <View
-            name="image"
-            as="input"
-            type="file"
-            style={{ alignSelf: "end" }}
-          />
           <Button type="submit" variation="primary">
             Create Note
           </Button>
@@ -114,13 +109,6 @@ const App = ({ signOut }) => {
               {note.name}
             </Text>
             <Text as="span">{note.description}</Text>
-            {note.image && (
-              <Image 
-                src = {note.image}
-                alt={`visual aid for ${notes.name}`}
-                style={{ width:400}}
-              />
-            )}
             <Button variation="link" onClick={() => deleteNote(note)}>
               Delete note
             </Button>
